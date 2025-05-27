@@ -1,0 +1,115 @@
+{%  extends 'base.html' %}
+{% block content %}
+<div class="container-fluid mt-4" xmlns="http://www.w3.org/1999/html">
+    <div class="row">
+        <!-- Tickets panel -->
+        <div class="col-md-12 col-lg-9">
+            <div class="card " style="height: 750px">
+                <div class="card-header">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-pills">
+                      <li class="nav-item dropdown me-2">
+                        <a class="nav-link dropdown-toggle active" data-bs-toggle="dropdown" role="button" aria-expanded="false">Tickets</a>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item active" id="all-ticket-tab" data-bs-toggle="tab" data-bs-target="#all-ticket" type="button" aria-controls="all-ticket" aria-selected="false">All tickets</a></li>
+                          <li><hr class="dropdown-divider"></li>
+                          <li><a class="dropdown-item" id="add-ticket-tab" data-bs-toggle="tab" data-bs-target="#add-ticket" type="button" aria-controls="add-ticket" aria-selected="false">Create ticket</a></li>
+                        </ul>
+                      </li>
+                      <li class="nav-item me-2" role="presentation">
+                        <button class="nav-link" id="users-tab" data-bs-toggle="tab" data-bs-target="#users" type="button" role="tab" aria-controls="users" aria-selected="false">Users</button>
+                      </li>
+                      <li class="nav-item me-2" role="presentation">
+                        <button class="nav-link" id="messages-tab" data-bs-toggle="tab" data-bs-target="#messages" type="button" role="tab" aria-controls="messages" aria-selected="false">Groups</button>
+                      </li>
+                      <li class="nav-item me-2" role="presentation">
+                        <button class="nav-link" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Settings</button>
+                      </li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                      <div class="tab-pane active" id="all-ticket" role="tabpanel" aria-labelledby="all-ticket-tab" tabindex="0">
+                            <div class="table-responsive" style="max-height: 660px">
+                              <table class="table table-hover">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Title</th>
+                                        <th scope="col">Description</th>
+                                        <th scope="col">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-group-divider">
+                                    {% for ticket in tickets %}
+                                        <tr>
+                                            <th scope="row">{{ ticket.id }}</th>
+                                            <td>
+                                                <div class="text-truncate">
+                                                    {{ ticket.title }}
+                                                </div>
+                                            </td>
+                                            <td>{{ ticket.description }}</td>
+                                            <td>
+                                                <div class="badge text-bg-primary">
+                                                  {{ ticket.status }}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                              </table>
+                            </div>
+                      </div>
+                      <div class="tab-pane" id="users" role="tabpanel" aria-labelledby="users-tab" tabindex="0">Users</div>
+                      <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab" tabindex="0">Groups</div>
+                      <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab" tabindex="0">Settings</div>
+                      <div class="tab-pane" id="add-ticket" role="tabpanel" aria-labelledby="add-ticket-tab" tabindex="0">
+                          {% if form %}
+                          <!-- Ticket form -->
+                            <form method="POST">
+                              {% csrf_token %}
+                               <div class="mb-3">
+                                    <label class="form-label">Title</label>
+                                    {{ form.title }}
+                               </div>
+                               <div class="mb-3">
+                                    <label class="form-label">Description</label>
+                                    {{ form.description }}
+                               </div>
+                              <button type="submit" class="btn">Submit</button>
+                            </form>
+                          {% endif %}
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Search and filter panel on computers -->
+        <div class="col-md-3 d-none d-lg-block">
+            <div class="card">
+              <div class="card-header">
+                  <form class="d-flex mt-2 mb-2" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Ticket ID" aria-label="Search" data-bs-theme="light"/>
+                    <button class="btn btn-success" type="submit">Search</button>
+                  </form>
+              </div>
+              <div class="card-body">
+                Filters
+              </div>
+            </div>
+        </div>
+        <!-- Panel -->
+        <div class="col-12">
+            <div class="card mt-4 mb-4">
+                <div class="card-body">
+                    Tickets count: {{ tickets_count }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+

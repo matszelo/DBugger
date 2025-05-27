@@ -1,0 +1,22 @@
+/* If changes in .css file doesn't work, click "Ctrl + F5" in browser */
+/* Active navigation pill */
+.nav-pills .nav-link.active, .nav-pills.show > .nav-link {
+    background-color: rebeccapurple;
+    }
+/* Navigation pills */
+.nav-pills .nav-link {
+    color: black;
+    }
+/* Active dropdown item */
+.dropdown .dropdown-item.active, .dropdown-item.show > .dropdown-item {
+    background-color: rebeccapurple;
+    }
+/* Dropdown item */
+.dropdown .dropdown-item:focus {
+    background-color: rebeccapurple;
+}
+/* Submit button */
+.tab-pane .btn{
+    background-color: rebeccapurple;
+    color: white;
+}
